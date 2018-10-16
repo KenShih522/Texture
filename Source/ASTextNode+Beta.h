@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import <AsyncDisplayKit/ASTextNode.h>
+#import <AsyncDisplayKit/ASTextLayout.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,6 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
  * Returns YES if this node is using the experimental implementation. NO otherwise. Will not change.
  */
 @property (readonly) BOOL usingExperiment;
+
+/*
+ * Returns layout for textNode that fit to constrainedSize's max size.
+ */
+- (ASTextLayout *)textLayoutForConstraint:(ASSizeRange)constrainedSize;
 
 @end
 

@@ -1373,6 +1373,14 @@ static NSAttributedString *DefaultTruncationAttributedString()
   }
 }
 
+#pragma mark - Unavailable
+
+- (ASTextLayout *)textLayoutForConstraint:(ASSizeRange)constrainedSize
+{
+  ASDisplayNodeFailAssert(@"This method is only available in ASTextNode2");
+  return nil;
+}
+
 @end
 
 @implementation ASTextNode (Deprecated)
