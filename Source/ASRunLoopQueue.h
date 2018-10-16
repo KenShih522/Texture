@@ -55,6 +55,8 @@ AS_SUBCLASSING_RESTRICTED
 
 @property (readonly, getter=isEnabled) BOOL enabled;
 
+- (void)disable;
+
 /**
  * The queue to run on main run loop before CATransaction commit.
  *

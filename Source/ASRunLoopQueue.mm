@@ -330,6 +330,7 @@ ASSynthesizeLockingMethodsWithMutex(_internalQueueLock)
 
   // In order to not pollute the top-level activities, each queue has 1 root activity.
   os_activity_t _rootActivity;
+  BOOL _disabled;
 
 #if ASRunLoopQueueLoggingEnabled
   NSTimer *_runloopQueueLoggingTimer;
@@ -363,6 +364,7 @@ static int const kASASCATransactionQueuePostOrder = 3000000;
     _runLoop = CFRunLoopGetMain();
     NSPointerFunctionsOptions options = NSPointerFunctionsStrongMemory;
     _internalQueue = [[NSPointerArray alloc] initWithOptions:options];
+    _disabled = NO;
 
     // We don't want to pollute the top-level app activities with run loop batches, so we create one top-level
     // activity per queue, and each batch activity joins that one instead.
@@ -535,7 +537,12 @@ static int const kASASCATransactionQueuePostOrder = 3000000;
 
 - (BOOL)isEnabled
 {
-  return ASActivateExperimentalFeature(ASExperimentalInterfaceStateCoalescing);
+  return ASActivateExperimentalFeature(ASExperimentalInterfaceStateCoalescing) && !_disabled;
+}
+
+- (void)disable
+{
+  _disabled = YES;
 }
 
 @end
